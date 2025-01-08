@@ -27,7 +27,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado:
   ```bash
   npm install
   npm install sweetalert2
-  
+
 ## Build
 
 - **Inicia el servidor de desarrollo:**
