@@ -1,27 +1,36 @@
-# Prueba3FrontEnd
+# Prueba 3 FrontEnd
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
+Este proyecto es la 3 prueba del curso de introdución al desarrollo web/móvil Universidad Católica del Norte. Desarrollado con Angular, Tailwind CSS y Flowbite
 
-## Development server
+## Tecnologías Utilizadas
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Angular**: Framework para el desarrollo de aplicaciones web modernas.  
+- **Tailwind CSS**: Para estilos rápidos y personalizados.  
+- **Flowbite**: Componentes de UI predefinidos.  
 
-## Code scaffolding
+## **Requisitos Previos**
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Antes de ejecutar el proyecto, asegúrate de tener instalado:  
 
+- **Node.js y npm**: Descarga desde [Node.js](https://nodejs.org).  
+- **Angular CLI**: Instálalo globalmente usando:  
+  ```bash
+  npm install -g @angular/cli
+
+## Instalación
+
+- **Clona el repositorio en tu máquina local:**
+  ```bash
+  https://github.com/bemoremore/Taller2IDWM.git
+  cd CLIENTWEB
+- **Instala las dependencias necesarias:**
+  ```bash
+  npm install
+  npm install sweetalert2
+  
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Inicia el servidor de desarrollo:**
+  ```bash
+  ng serve
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
