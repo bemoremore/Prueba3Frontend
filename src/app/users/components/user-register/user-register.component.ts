@@ -27,10 +27,17 @@ export class UserRegisterComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(6), this.passwordValidator]],
     });
   }
 
+  passwordValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const password = control.value;
+    if (!/\d/.test(password)) {
+       return { numberRequired: true };
+    }
+    return null;
+ }
   
 
   onSubmit() {
@@ -44,7 +51,7 @@ export class UserRegisterComponent implements OnInit {
       next: (response) => {
         console.log("Usuario creado", response);
         this.userCreated = true;
-        this.router.navigate(['/login']);
+        setTimeout(() => this.router.navigate(['/login']), 3000);
       },
       error: (error) => {
         console.log("Error en el registro", error);

@@ -20,46 +20,58 @@
 
             <!-- Título del Post -->
             <div class="mb-4">
-                <label for="title" class="block mb-1 text-sm font-medium text-gray-900">
+                <label for="Title" class="block mb-1 text-sm font-medium text-gray-900">
                     Título
                 </label>
                 <input
                     type="text"
-                    id="title"
-                    formControlName="title"
+                    id="Title"
+                    formControlName="Title"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
                     placeholder="Título del post"
                 />
-                <div *ngIf="postForm.get('title')?.invalid && postForm.get('title')?.touched" class="text-red-500 text-sm">
-                    <span *ngIf="postForm.get('title')?.errors?.['required']">El título es obligatorio.</span>
+                <div *ngIf="postForm.get('Title')?.invalid && postForm.get('Title')?.touched" class="text-red-500 text-sm">
+                    <span *ngIf="postForm.get('Title')?.errors?.['required']">El título es obligatorio.</span>
+                    <span *ngIf="postForm.get('Title')?.errors?.['minlength']">El título debe tener al menos 5 caracteres.</span>
                 </div>
             </div>
 
             <!-- Imagen -->
             <div class="mb-5">
-                <label for="image" class="block mb-1 text-sm font-medium text-gray-900">
+                <label for="Image" class="block mb-1 text-sm font-medium text-gray-900">
                     Imagen
                 </label>
+                
                 <input
                     type="file"
-                    id="image"
-                    (change)="onFileSelected($event)"
+                    id="Image"
+                    formControlName="Image"
+                    (change)="onImagePicked($event)"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
                 />
-                <div *ngIf="postForm.get('image')?.invalid && postForm.get('image')?.touched" class="text-red-500 text-sm">
-                    <span *ngIf="postForm.get('image')?.errors?.['required']">La imagen es obligatoria.</span>
+                <div 
+                    *ngIf="postForm.get('Image')?.invalid && postForm.get('Image')?.touched" 
+                    class="text-red-500 text-sm"
+                >
+                    <span *ngIf="postForm.get('Image')?.errors?.['required']">
+                    La imagen es obligatoria.
+                    </span>
+                </div>
+                <div *ngIf="imagePreview" class="mt-2">
+                    <img [src]="imagePreview" alt="Image Preview" class="w-full h-auto rounded-lg"/>
                 </div>
             </div>
 
             <!-- Botón de Enviar -->
             <button
                 type="submit"
+                [disabled]="postForm.invalid"
                 class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
             >
                 Crear Post
             </button>
         <div *ngIf="postCreated" class="mt-4 text-green-500 text-center">
-            Post creado con éxito.
+            Post creado con éxito. Redirigiendo...
         </div>
         </form>
     </div>

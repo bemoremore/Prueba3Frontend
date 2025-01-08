@@ -20,7 +20,7 @@ import { User } from '../../interfaces/user';
 export class UserLoginComponent implements OnInit {
 
   loginForm!: FormGroup;
-  error = false;
+  errorMessage: string | null = null;
   loginSuccess = false;
   
 
@@ -36,22 +36,43 @@ export class UserLoginComponent implements OnInit {
   
 
   onSubmit() {
+    if (this.loginForm.invalid) {
+      this.errorMessage = 'Por favor, llena todos los campos.';
+      return
+    }
+
     const loginUser: User = {
       mail: this.loginForm.value.email,
       password: this.loginForm.value.password
     };
 
-    this.userService.login(loginUser).subscribe(
-      (response) => {
+    this.userService.login(loginUser).subscribe({
+      next: (response) => {
         this.loginSuccess = true;
+        this.errorMessage = null;
         this.jwtService.setToken(response.token);
-        this.router.navigate(['/home']);
+        console.log('Login exitoso, token guardado');
+
+        setTimeout(() => {
+          this.router.navigate(['/home']);
+        }, 2000); // Retraso de 2 segundos para mostrar el mensaje
       },
-      (error) => {
-        console.log("Error en el login", error);
-        this.error = true;
-      }
-    );
+      error: (error) => {
+        this.loginSuccess = false;
+        //Se limpia el formulario pero solo la contraseña
+        this.loginForm.get('password')?.reset();
+        if (error.status === 401) {
+          this.errorMessage = 'Credenciales inválidas. Intenta nuevamente.';
+        } else if (error.status === 0) {
+          this.errorMessage = 'No se pudo conectar con el servidor. Intenta nuevamente.';
+        } else if (error.status === 400) {
+          this.errorMessage = 'Error al validar los datos. Intenta nuevamente.';
+        } else {
+          this.errorMessage = 'Hubo un error en el servidor. Intenta nuevamente.';
+        }
+        console.error('Error en el login:', error);
+      },
+    });
 
   }
 

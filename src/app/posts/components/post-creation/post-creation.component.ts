@@ -23,18 +23,49 @@ export class PostCreationComponent implements OnInit{
 
   postCreated = false;
 
+  imagePreview: string | ArrayBuffer | null = null;
+
   constructor(private formBuilder: FormBuilder, private router: Router, private postService: PostService) { }
 
   ngOnInit(): void {
     this.postForm = this.formBuilder.group({
-      title: ['', [Validators.required, Validators.minLength(5)]],
-      image: ['', [Validators.required, this.fileValidator.bind(this)]]
+      Title: ['', [Validators.required, Validators.minLength(5)]],
+      Image: [null, [Validators.required]]
     });
+  }
+
+  onImagePicked(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.selectedFile = file;
+      
+      // Crear preview de la imagen
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+
+      // Actualizar el control del formulario
+      this.postForm.patchValue({
+        Image: file
+      });
+      this.postForm.get('Image')?.updateValueAndValidity();
+    }
   }
 
   fileValidator(control: AbstractControl): ValidationErrors | null {
     const file = control.value;
-    if (file && file.size > 0) {
+    if (file) {
+      const maxSize = 5 * 1024 * 1024;
+      const allowedTypes = ['image/jpeg', 'image/png'];
+      if (!allowedTypes.includes(file.type)) {
+        return { invalidFormat: true };
+      }
+      if (file.size > maxSize) {
+        return { maxSizeExceeded: true };
+      }
       return null;
     }
     return { required: true };
@@ -44,33 +75,30 @@ export class PostCreationComponent implements OnInit{
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
+      this.postForm.setValue({ Title: this.postForm.get('Title')?.value, Image: this.selectedFile });
     }
   }
 
   onSubmit() : void{
-    if (this.postForm.valid && this.selectedFile) {
-      const formData = new FormData();
-      formData.append('title', this.postForm.get('title')?.value);
-      formData.append('image', this.selectedFile);
 
+      const formData = new FormData();
+      formData.append('Title', this.postForm.get('Title')?.value);
+      formData.append('Image', this.selectedFile);
       this.postService.createPost(formData).subscribe({
         next: () => {
-          alert('Post creado exitosamente');
           this.postCreated = true;
-          this.router.navigate(['/posts/create']);
+          setTimeout(() => this.router.navigate(['/posts']), 3000);
         },
         error: (err) => {
           console.error('Error al crear el post:', err);
         }
       });
-    } else {
-      alert('Por favor, completa el formulario y selecciona una imagen.');
-    }
+    
   
   }
 
   get title() {
-    return this.postForm.get('title');
+    return this.postForm.get('Title');
   }
 
   goToHome() {

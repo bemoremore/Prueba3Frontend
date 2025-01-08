@@ -1,1 +1,38 @@
-<p>home works!</p>
+<!-- Fondo que cubre toda la pantalla -->
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/assets/descarga2.jpg');"></div>
+<div class="absolute inset-0 bg-zinc-700 opacity-60"></div> <!-- Panel opaco -->
+
+<!-- Contenedor principal -->
+<div class="relative flex justify-center items-center h-screen z-10">
+    <!-- Contenedor del Home -->
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm text-center">
+        <!-- Título de Bienvenida -->
+        <h1 class="mb-4 text-3xl font-extrabold tracking-tight leading-none text-gray-900">
+            Bienvenido/a
+        </h1>
+
+        <!-- Botones de Acción -->
+        <div class="mb-4">
+            <button
+                class="w-full mb-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+                (click)="viewPosts()"
+            >
+                Ver los Post's
+            </button>
+            <button
+                class="w-full text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5"
+                (click)="createPost()"
+            >
+                Crear Post
+            </button>
+        </div>
+
+        <!-- Botón de Logout -->
+        <button
+            class="w-full text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5"
+            (click)="logout()"
+        >
+            Logout
+        </button>
+    </div>
+</div>

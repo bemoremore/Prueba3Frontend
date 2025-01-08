@@ -4,7 +4,6 @@
 
 <!-- Contenedor principal -->
 <div class="relative flex justify-center items-center h-screen z-10">
-    <!-- Formulario dentro de un contenedor blanco reducido -->
     <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm">
         <button
             class="absolute top-4 left-4 bg-blue-700 text-white font-medium rounded-lg text-sm px-4 py-2 shadow-lg hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -30,8 +29,9 @@
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
                     placeholder="name@domain.com"
                 />
-                <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-red-500 text-sm">
-                    <span *ngIf="registerForm.get('email')?.errors?.['required']">El correo es obligatorio.</span>
+                <div *ngIf="email?.invalid && email?.touched" class="text-red-500 text-sm">
+                    <span *ngIf="email?.errors?.['required']">El correo es obligatorio.</span>
+                    <span *ngIf="email?.errors?.['email']">El correo debe tener un formato valido.</span>
                 </div>
             </div>
 
@@ -46,18 +46,24 @@
                     formControlName="password"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2"
                 />
-                <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-red-500 text-sm">
-                    <span *ngIf="registerForm.get('password')?.errors?.['required']">La contraseña es obligatoria.</span>
+                <div *ngIf="password?.invalid && password?.touched" class="text-red-500 text-sm">
+                    <span *ngIf="password?.errors?.['required']">La contraseña es obligatoria.</span>
+                    <span *ngIf="password?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</span>
+                    <span *ngIf="password?.errors?.['numberRequired']">La contraseña debe tener al menos un numero.</span>
                 </div>
             </div>
+
             <!-- Botón de Enviar -->
             <button
                 type="submit"
                 class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                [disabled]="registerForm.invalid"
             >
                 Crear Usuario
             </button>
         </form>
+
+        <!-- Mensaje de éxito -->
         <div *ngIf="userCreated" class="mt-4 text-green-500 text-center">
             Usuario creado correctamente. Redirigiendo al login...
         </div>

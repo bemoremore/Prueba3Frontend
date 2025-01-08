@@ -1,13 +1,9 @@
 export interface Post {
     id: number;
     title: string;
-    date: Date;
-    URL: string;
-    userId: string;
-    user: {
-        email: string;
-        id: string;
-    }
+    publicationDate: Date;
+    url: string;
+    userEmail: string;
 }
 
 export interface PostCreate {
