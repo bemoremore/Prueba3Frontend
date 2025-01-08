@@ -1,1 +1,75 @@
-<p>user-login works!</p>
+<div class="absolute inset-0 bg-cover bg-center opacity-50" style="background-image: url('/assets/descarga2.jpg');"></div>
+<div class="absolute inset-0 bg-zinc-700 opacity-60"></div>
+
+<div class="flex flex-col items-center justify-center min-h-screen relative">
+    <!-- Formulario dentro del cuadrado blanco -->
+    <div class="bg-white rounded-lg shadow-lg p-8 w-full max-w-sm relative z-10">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <!-- Título -->
+            <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900">
+                Inicio de Sesión
+            </h1>
+
+            <!-- Correo Electrónico -->
+            <div class="mb-5">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Correo Electrónico</label>
+                <input
+                    type="email"
+                    id="email"
+                    formControlName="email"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="name@domain.com"
+                    aria-describedby="email-error"
+                />
+                <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" id="email-error" class="text-red-500 text-sm mt-1">
+                    <span *ngIf="loginForm.get('email')?.errors?.['required']">El correo es obligatorio.</span>
+                    <span *ngIf="loginForm.get('email')?.errors?.['email']">El correo no es válido.</span>
+                </div>
+            </div>
+
+            <!-- Contraseña -->
+            <div class="mb-5">
+                <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Contraseña</label>
+                <input
+                    type="password"
+                    id="password"
+                    formControlName="password"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="••••••••"
+                    aria-describedby="password-error"
+                />
+                <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" id="password-error" class="text-red-500 text-sm mt-1">
+                    <span *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es obligatoria.</span>
+                    <span *ngIf="loginForm.get('password')?.errors?.['minlength']">Debe tener al menos 8 caracteres.</span>
+                </div>
+            </div>
+
+            <!-- Botón de Enviar -->
+            <button
+                type="submit"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">
+                Iniciar Sesión
+            </button>
+
+            <!-- Mensajes de Estado -->
+            <div class="mt-3">
+                <div *ngIf="loginSuccess" class="bg-green-50 border border-green-500 text-green-900 rounded-lg p-4 flex items-center">
+                    <span class="text-sm font-medium">Ingreso correctamente.</span>
+                </div>
+                <div *ngIf="error" class="bg-red-50 border border-red-500 text-red-900 rounded-lg p-4 flex items-center mt-2">
+                    <span class="text-sm font-medium">Hubo un error al ingreso.</span>
+                </div>
+            </div>
+
+            <!-- Botón de Registro -->
+            <div class="flex justify-end mt-4">
+                <button
+                    type="button"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
+                    (click)="goToRegister()">
+                    Registrarse
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
