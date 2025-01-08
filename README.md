@@ -21,7 +21,7 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado:
 
 - **Clona el repositorio en tu máquina local:**
   ```bash
-  https://github.com/bemoremore/Taller2IDWM.git
+  [https://github.com/bemoremore/Taller2IDWM.git](https://github.com/bemoremore/Prueba3Frontend.git)
   cd CLIENTWEB
 - **Instala las dependencias necesarias:**
   ```bash
